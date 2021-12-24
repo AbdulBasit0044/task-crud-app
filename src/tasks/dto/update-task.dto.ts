@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsArray, IsNumber } from 'class-validator';
 
 export class UpdateTaskDto {
-    @IsNotEmpty()
+    @IsArray()
     favoriteFoods: string[]
 
     @IsNumber()
