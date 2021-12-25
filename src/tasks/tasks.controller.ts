@@ -20,7 +20,7 @@ export class TasksController {
 
   @Post()
   async createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-      return this.tasksService.createTask(createTaskDto.email, createTaskDto.age)
+      return this.tasksService.createTask(createTaskDto);
   }
 
   @Patch(':taskId')
