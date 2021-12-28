@@ -9,22 +9,22 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get(':taskId')
-  async getTask(@Param('taskId') taskId: string): Promise<Task> {
+  getTask(@Param('taskId') taskId: string): Promise<Task> {
     return this.tasksService.getTaskById(taskId);
   }
 
   @Get()
-  async getTasks(): Promise<Task[]> {
+  getTasks(): Promise<Task[]> {
     return this.tasksService.getTasks();
   }
 
   @Post()
-  async createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+  createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksService.createTask(createTaskDto);
   }
 
   @Patch(':taskId')
-  async updateTask(
+  updateTask(
     @Param('taskId') taskId: string,
     @Body() updateTaskDto: UpdateTaskDto,
   ): Promise<Task> {

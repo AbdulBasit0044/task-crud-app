@@ -50,15 +50,10 @@ describe('TasksController', () => {
   });
 
   it('should create a task!', async () => {
-    let actual: Task;
-    try {
-      actual = await tasksController.createTask({
-        email: 'testing123344@gmail.com',
-        age: 22,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    const actual = await tasksController.createTask({
+      email: 'testing123344@gmail.com',
+      age: 22,
+    });
     expect(actual).toEqual({
       taskId: expect.any(String),
       favoriteFoods: [],
@@ -68,15 +63,10 @@ describe('TasksController', () => {
   });
 
   it('should not create a user!', async () => {
-    let actual: Task;
-    try {
-      actual = await tasksController.createTask({
-        email: 'testing123344@gmail.com',
-        age: 22,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    const actual = await tasksController.createTask({
+      email: 'testing123344@gmail.com',
+      age: 22,
+    });
     expect(actual).not.toEqual({
       taskId: expect.any(String),
       favoriteFoods: [],
@@ -85,29 +75,18 @@ describe('TasksController', () => {
     });
   });
 
-
   it('should getAll users!', async () => {
-    let actual: Task[];
-    try {
-      actual = await tasksController.getTasks();
-    } catch (err) {
-      console.log(err);
-    }
+    const actual = await tasksController.getTasks();
     expect(actual).toEqual([]);
   });
 
   it('should update the task!', async () => {
-    let actual: Task;
-    try {
-      const taskId = uuidv4();
-      const dto = {
-        favoriteFoods: ['zzz', 'aaa'],
-        age: 222,
-      };
-      actual = await tasksController.updateTask(taskId, dto);
-    } catch (err) {
-      console.log(err);
-    }
+    const taskId = uuidv4();
+    const dto = {
+      favoriteFoods: ['zzz', 'aaa'],
+      age: 222,
+    };
+    const actual = await tasksController.updateTask(taskId, dto);
     expect(actual).toEqual({
       taskId: expect.any(String),
       favoriteFoods: ['zzz', 'aaa'],
@@ -116,17 +95,12 @@ describe('TasksController', () => {
   });
 
   it('should update the task!', async () => {
-    let actual: Task;
-    try {
-      const taskId = uuidv4();
-      const dto = {
-        favoriteFoods: ['zzz', 'aaa'],
-        age: 222,
-      };
-      actual = await tasksController.updateTask(taskId, dto);
-    } catch (err) {
-      console.log(err);
-    }
+    const taskId = uuidv4();
+    const dto = {
+      favoriteFoods: ['zzz', 'aaa'],
+      age: 222,
+    };
+    const actual = await tasksController.updateTask(taskId, dto);
     expect(actual).not.toEqual({
       taskId: expect.any(String),
       favoriteFoods: ['aaa', 'aaa'],

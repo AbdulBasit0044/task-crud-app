@@ -9,15 +9,15 @@ import { CreateTaskDto } from './dto/create-task.dto';
 export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
-  async getTaskById(taskId: string): Promise<Task> {
+  getTaskById(taskId: string): Promise<Task> {
     return this.tasksRepository.findOne({ taskId });
   }
 
-  async getTasks(): Promise<Task[]> {
+  getTasks(): Promise<Task[]> {
     return this.tasksRepository.find({});
   }
 
-  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+  createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     const {email, age} = createTaskDto;
     return this.tasksRepository.create({
       taskId: uuidv4(),
@@ -27,7 +27,7 @@ export class TasksService {
     });
   }
 
-  async updateTask(taskId: string, taskUpdates: UpdateTaskDto): Promise<Task> {
+  updateTask(taskId: string, taskUpdates: UpdateTaskDto): Promise<Task> {
     return this.tasksRepository.findOneAndUpdate({ taskId }, taskUpdates);
   }
 }
