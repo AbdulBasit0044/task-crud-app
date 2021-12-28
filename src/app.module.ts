@@ -8,11 +8,11 @@ import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/demo'),
-    TasksModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    MongooseModule.forRoot(process.env.MONGO_CONNECTION_URI),
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -30,10 +30,19 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer()).get('/tasks').expect(200);
   });
 
-  it('/ (GETBYID)', () => {
-    return request(app.getHttpServer())
-      .get('/tasks/4394af0e-1c6b-4491-a828-764b4daede6c')
-      .expect(200);
+  it('/ (GET)', () => {
+    return request(app.getHttpServer()).get('/taskss').expect(404);
+  });
+
+  it('/ (GETBYID)', async () => {
+    const id = await request(app.getHttpServer())
+      .post('/tasks')
+      .send({
+        email: 'testForPostAndGetById@gmail.com',
+        age: '123456',
+      })
+      .then((resp) => resp.body.taskId);
+    return request(app.getHttpServer()).get(`/tasks/${id}`).expect(200);
   });
 
   it('/ (POST)', () => {

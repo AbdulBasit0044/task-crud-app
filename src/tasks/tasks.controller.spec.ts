@@ -3,6 +3,7 @@ import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
 import { TasksRepository } from './tasks.repository';
 import { v4 as uuidv4 } from 'uuid';
+import { Task } from './schemas/tasks.schema';
 
 // jest.mock('./tasks.service');
 
@@ -48,9 +49,10 @@ describe('TasksController', () => {
     expect(tasksController).toBeDefined();
   });
 
-  it('should create a user!', async () => {
+  it('should create a task!', async () => {
+    let actual: Task;
     try {
-      var actual = await tasksController.createTask({
+      actual = await tasksController.createTask({
         email: 'testing123344@gmail.com',
         age: 22,
       });
@@ -65,9 +67,29 @@ describe('TasksController', () => {
     });
   });
 
-  it('should getAll users!', async () => {
+  it('should not create a user!', async () => {
+    let actual: Task;
     try {
-      var actual = await tasksController.getTasks();
+      actual = await tasksController.createTask({
+        email: 'testing123344@gmail.com',
+        age: 22,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    expect(actual).not.toEqual({
+      taskId: expect.any(String),
+      favoriteFoods: [],
+      age: 23,
+      email: 'testing123344@gmail.com',
+    });
+  });
+
+
+  it('should getAll users!', async () => {
+    let actual: Task[];
+    try {
+      actual = await tasksController.getTasks();
     } catch (err) {
       console.log(err);
     }
@@ -75,13 +97,14 @@ describe('TasksController', () => {
   });
 
   it('should update the task!', async () => {
+    let actual: Task;
     try {
-      const taskId = '1234';
+      const taskId = uuidv4();
       const dto = {
         favoriteFoods: ['zzz', 'aaa'],
         age: 222,
       };
-      var actual = await tasksController.updateTask(taskId, dto);
+      actual = await tasksController.updateTask(taskId, dto);
     } catch (err) {
       console.log(err);
     }
@@ -89,6 +112,25 @@ describe('TasksController', () => {
       taskId: expect.any(String),
       favoriteFoods: ['zzz', 'aaa'],
       age: 222,
+    });
+  });
+
+  it('should update the task!', async () => {
+    let actual: Task;
+    try {
+      const taskId = uuidv4();
+      const dto = {
+        favoriteFoods: ['zzz', 'aaa'],
+        age: 222,
+      };
+      actual = await tasksController.updateTask(taskId, dto);
+    } catch (err) {
+      console.log(err);
+    }
+    expect(actual).not.toEqual({
+      taskId: expect.any(String),
+      favoriteFoods: ['aaa', 'aaa'],
+      age: 111,
     });
   });
 
