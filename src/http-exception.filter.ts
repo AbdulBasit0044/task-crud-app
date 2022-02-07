@@ -22,9 +22,23 @@ export class AllExceptionsFilter implements ExceptionFilter {
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
-
+    let message = null;
+    switch (httpStatus) {
+      case 404:
+        message = 'Not Found';
+        break;
+      case 400:
+        message = 'Bad Request Error';
+        break;
+      case 500:
+        message = 'Internal Server Error';
+        break;
+      default:
+        message = 'Error occured due to some bad request';
+    }
     const responseBody = {
       statusCode: httpStatus,
+      message,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
     };
